@@ -1,6 +1,24 @@
 #include <iostream>
 #include <Windows.h>
 #include "ED_Map.h"
+#include <string>
+#include <limits>
+
+int inputInt(const char* prompt, int min, int max)
+{
+    int N;
+    while (true) {
+        std::cout << prompt;
+        if (std::cin >> N && N >= min && N <= max) {
+            return N;
+        }
+        else {
+            std::cout << "Неправильне введення. Будь ласка спробуйте ще раз." << std::endl;
+            std::cin.clear();
+            std::cin.ignore(INT_MAX, '\n'); // Використовуємо INT_MAX замість std::numeric_limits<std::streamsize>::max()
+        }
+    }
+}
 
 int main() {
 
@@ -26,8 +44,10 @@ int main() {
         std::cout << "4. Перекласти з " << languageB << " на " << languageA << std::endl;
         std::cout << "5. Вийти" << std::endl;
 
-        int choice;
-        std::cin >> choice;
+        int choice = 7;
+
+        choice = inputInt("Ваш вибір. ", 1, 5);
+
 
         if (choice == 1) {
             std::string wordA, wordB;
